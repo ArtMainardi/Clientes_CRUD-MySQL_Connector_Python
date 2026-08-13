@@ -12,7 +12,7 @@ def criar_tabela():
         cursor = conexao.cursor()
 
         cursor.execute('''
-            CREATE TABLE Clientes(
+            CREATE TABLE IF NOT EXISTS Clientes(
                 id_usuario INT PRIMARY KEY AUTO_INCREMENT,
                 NOME VARCHAR(100) NOT NULL,
                 EMAIL VARCHAR(255) UNIQUE,
