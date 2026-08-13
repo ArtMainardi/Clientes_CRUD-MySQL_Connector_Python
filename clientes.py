@@ -3,6 +3,14 @@ import banco
 
 banco.criar_tabela()
 
+# Classe para um objeto 'cliente':
+class cliente():
+    def __init__(self, id, nome, email, telefone):
+        self.id = id
+        self.nome = nome
+        self.email = email
+        self.telefone = telefone
+
 def criar(nome, email, telefone):
     conexao = None
     try:
