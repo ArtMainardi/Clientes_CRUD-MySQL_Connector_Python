@@ -13,10 +13,10 @@ def criar_tabela():
 
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS Clientes(
-                id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-                NOME VARCHAR(100) NOT NULL,
-                EMAIL VARCHAR(255) UNIQUE,
-                TELEFONE CHAR(14) UNIQUE
+                id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+                nome VARCHAR(100) NOT NULL,
+                email VARCHAR(255) UNIQUE,
+                telefone CHAR(14) UNIQUE
             );
         ''')
 
