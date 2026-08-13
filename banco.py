@@ -1,15 +1,15 @@
 import mysql.connector
 from config import DB_CONFIG
 
-conexao = None
-
 def conectar():
     conexao = mysql.connector.connect(**DB_CONFIG)
-    return conexao.cursor()
+    return conexao
 
 def criar_tabela():
+    conexao = None
     try:
-        cursor = conectar()
+        conexao = conectar()
+        cursor = conexao.cursor()
 
         cursor.execute('''
             CREATE TABLE Clientes(
@@ -20,10 +20,10 @@ def criar_tabela():
             );
         ''')
 
-        cursor.commit()
+        conexao.commit()
         print("Tabela 'Clientes' criada com sucesso!")
     except mysql.connector.Error as e:
         print(f"ERRO: {e}")
     finally:
-        if conexao.is_connected():
+        if conexao and conexao.is_connected():
             conexao.close()
