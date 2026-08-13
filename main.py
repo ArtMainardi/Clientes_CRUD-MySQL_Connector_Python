@@ -1,3 +1,6 @@
-import banco
+import clientes
 
-banco.criar_tabela()
+nome = input("C")
+email = input("A")
+telefone = input("B")
+clientes.criar(nome, email, telefone)
