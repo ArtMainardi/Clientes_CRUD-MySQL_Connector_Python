@@ -10,6 +10,11 @@ class cliente():
         self.nome = nome
         self.email = email
         self.telefone = telefone
+    def __init__(self, nome, email, telefone):
+        self.id = None
+        self.nome = nome
+        self.email = email
+        self.telefone = telefone
 
 def criar(cliente):
     conexao = None
@@ -63,7 +68,29 @@ def listar():
                 print(f"ID: {c[0]}  |  Nome: {c[1]}  |  Email: {c[2]}  |  Telefone: {c[3]}")
         else:
             print("Nenhum dado encontrado!")
-    except error:
+    except Exception as error:
+        print("ERRO: " + error)
+    finally:
+        if conexao and conexao.is_connected():
+            conexao.close()
+
+def buscar(id):
+    conexao = None
+    try:
+        conexao = banco.conectar()
+        cursor = conexao.cursor()
+
+        cursor.execute('''
+            SELECT * FROM Clientes WHERE id_cliente = %s
+        ''', (id,))
+        dado = cursor.fetchall()
+
+        if len(dado) == 0:
+            print("Nenhum dado com esse ID encontrado!")
+        else:
+            print(f"ID: {dado[0][0]}  |  Nome: {dado[0][1]}  |  Email: {dado[0][2]}  |  Telefone: {dado[0][3]}")
+            return dado
+    except Exception as error:
         print("ERRO: " + error)
     finally:
         if conexao and conexao.is_connected():
