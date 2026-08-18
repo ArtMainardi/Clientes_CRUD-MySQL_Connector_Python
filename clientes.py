@@ -69,7 +69,7 @@ def listar():
         else:
             print("Nenhum dado encontrado!")
     except Exception as error:
-        print("ERRO: " + error)
+        print("ERRO: ", error)
     finally:
         if conexao and conexao.is_connected():
             conexao.close()
@@ -91,7 +91,28 @@ def buscar(id):
             print(f"ID: {dado[0][0]}  |  Nome: {dado[0][1]}  |  Email: {dado[0][2]}  |  Telefone: {dado[0][3]}")
             return dado
     except Exception as error:
-        print("ERRO: " + error)
+        print("ERRO: ", error)
     finally:
         if conexao and conexao.is_connected():
+            conexao.close()
+
+def deletar(id):
+    conexao = None
+    try:
+        conexao = banco.conectar()
+        cursor = conexao.cursor()
+
+        cursor.execute('''
+            DELETE FROM Clientes WHERE id_cliente = %s
+        ''', (id,))
+
+        if cursor.rowcount == 0:
+            print("Nenhum dado com o ID encontrado!")
+        else:
+            conexao.commit()
+            print("Dado excluído com sucesso!")
+    except Exception as error:
+        print("ERRO: ", error)
+    finally:
+        if conexao and conexao.is_connected:
             conexao.close()
