@@ -46,3 +46,25 @@ def atualizar(cliente):
     finally:
         if conexao and conexao.is_connected():
             conexao.close()
+
+def listar():
+    conexao = None
+    try:
+        conexao = banco.conectar()
+        cursor = conexao.cursor()
+
+        cursor.execute('''
+            SELECT * FROM Clientes;
+        ''')
+        lista = cursor.fetchall()
+
+        if len(lista) != 0:
+            for c in lista:
+                print(f"ID: {c[0]}  |  Nome: {c[1]}  |  Email: {c[2]}  |  Telefone: {c[3]}")
+        else:
+            print("Nenhum dado encontrado!")
+    except error:
+        print("ERRO: " + error)
+    finally:
+        if conexao and conexao.is_connected():
+            conexao.close()

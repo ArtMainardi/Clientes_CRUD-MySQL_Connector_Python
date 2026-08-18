@@ -1,1 +1,3 @@
 import clientes
+
+clientes.listar()
